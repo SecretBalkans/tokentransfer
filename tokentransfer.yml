@@ -1,0 +1,57 @@
+# start with docker-compose -f tokentransfer.yml up -d
+
+version: '3'
+
+services:
+
+  localsecret:
+    container_name: localsecret
+    image: "ghcr.io/scrtlabs/localsecret"
+    ports:
+      - "26657:26657"
+      - "1317:1317"
+      - "5000:5000"
+      - "9090:9090"
+      - "9091:9091"
+    networks:
+      - shadbot
+
+  osmosisd:
+    container_name: localosmosis
+    image: local:osmosis
+    build:
+      context: ./osmosis
+      dockerfile: Dockerfile
+      args:
+        RUNNER_IMAGE: golang:1.20.3-alpine3.17
+        GO_VERSION: "1.20"
+    volumes:
+      - ./osmosis/tests/localosmosis/scripts/nativeDenomPoolA.json:/osmosis/nativeDenomPoolA.json
+      - ./osmosis/tests/localosmosis/scripts/nativeDenomPoolB.json:/osmosis/nativeDenomPoolB.json
+      - ./osmosis/tests/localosmosis/scripts/nativeDenomThreeAssetPool.json:/osmosis/nativeDenomThreeAssetPool.json
+      - ./osmosis/tests/localosmosis/scripts/stableswapPool.json:/osmosis/stableswapPool.json
+      - ./osmosis/tests/localosmosis/scripts/setup.sh:/osmosis/setup.sh
+      - ./osmosis/tests/localosmosis/cl-genesis-positions:/osmosis/cl-genesis-positions
+      - $HOME/.osmosisd-local/:/osmosis/.osmosisd/
+    entrypoint:
+      - /osmosis/setup.sh
+    ports:
+      - "26690:26657"
+      - "1390:1317"
+      - "1090:9090"
+      - "1091:9091"
+    networks:
+      - shadbot
+
+  relayer_hermes:
+    build: ./relayer_hermes
+    container_name: relayer
+    image: "relayer_hermes"
+    tty: true
+    stdin_open: true
+    networks:
+      - shadbot
+
+networks:
+    shadbot:
+      name: shadbot
