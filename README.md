@@ -47,8 +47,21 @@ If modify the configuration file just rebuild the containers!
 ### Run Hermes ###
 ---
 
+```
+$ docker exec -it relayer bash
+$ root@71a69ae93138:/home/hermes# ./run_relayer
+
+
+
+```
+
 ``` 
 $ docker exec relayer hermes query connections --chain localosmosis 
+
+$ docker exec relayer hermes query connections --chain localsecret
+
+$ docker exec relayer hermes query connections --chain pulsar-2
+
 ```
 
 Have fun!
