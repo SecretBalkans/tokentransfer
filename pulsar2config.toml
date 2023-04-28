@@ -1,0 +1,75 @@
+[global]
+log_level = 'info'
+
+[mode]
+
+[mode.clients]
+enabled = true
+refresh = true
+misbehaviour = true
+
+[mode.connections]
+enabled = true
+
+[mode.channels]
+enabled = true
+
+[mode.packets]
+enabled = true
+clear_interval = 100
+clear_on_start = true
+tx_confirmation = true
+
+# [rest]
+# enabled = true
+# host = '127.0.0.1'
+# port = 3000
+
+[telemetry]
+enabled = true
+host = '127.0.0.1'
+port = 3001
+
+[[chains]]
+id = 'pulsar-2'
+rpc_addr = 'https://rpc.pulsar.scrttestnet.com/'#'https://pulsar-2.api.trivium.network:26657'
+grpc_addr = 'http://grpcbin.pulsar.scrttestnet.com:9099'#'https://rpc.testnet.secretsaturn.net:9091' 
+websocket_addr = 'wss://rpc.pulsar.scrttestnet.com/websocket'#'ws://pulsar-2.api.trivium.network:26657/websocket'
+rpc_timeout = '10s'
+account_prefix = 'secret'
+key_name = 'secret-relayer'
+store_prefix = 'ibc'
+default_gas = 100000
+max_gas = 400000
+gas_price = { price = 1, denom = 'uscrt' }
+clock_drift = '5s'
+trusting_period = '160s'
+trust_threshold = { numerator = '1', denominator = '3'}
+# address_type = { derivation = 'cosmos' }
+# max_block_time = '10s'
+# max_msg_num = 30
+# max_tx_size = 2097152
+# default_gas = 50000
+# gas_adjustment = 0.1
+
+[[chains]]
+id = 'localosmosis'
+rpc_addr = 'http://127.0.0.1:26657'
+grpc_addr = 'http://127.0.0.1:9090'
+websocket_addr = 'ws://127.0.0.1:26657/websocket'
+rpc_timeout = '10s'
+account_prefix = 'osmo'
+key_name = 'osmosis-relayer'
+store_prefix = 'ibc'
+default_gas = 100000
+max_gas = 400000
+gas_price = { price = 1, denom = 'uosmo' }
+clock_drift = '5s'
+trusting_period = '160s'
+trust_threshold = { numerator = '1', denominator = '3' }
+# max_block_time = '10s'
+# max_msg_num = 30
+# max_tx_size = 2097152
+# default_gas = 100000
+# address_type = { derivation = 'cosmos' }
+# gas_adjustment = 0.1
