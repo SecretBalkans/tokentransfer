@@ -49,6 +49,9 @@ services:
     image: "relayer_hermes"
     tty: true
     stdin_open: true
+    ports: 
+      - "3000:3000"
+      - "3001:3001"
     networks:
       - shadbot
 
