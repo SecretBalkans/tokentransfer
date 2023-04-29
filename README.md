@@ -40,6 +40,7 @@ $ docker-compose -f tokentransfer.yml down
 ---
 
 Uncoment the chain _[pulsar-2]_ in _relayer_hermes/config.toml_
+#### Pulsar2 Faucet can be found [here](https://faucet.pulsar.scrttestnet.com/)
 
 ### Note ###
 If modify the configuration file just rebuild the containers!
